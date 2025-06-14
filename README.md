@@ -1,4 +1,4 @@
-# Script Mejorado para Verificación de Usuarios SMTP (VRFY)
+# Script para Verificación de Usuarios SMTP (VRFY)
 
 ## Mejoras realizadas y explicación:
 
