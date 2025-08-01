@@ -1,43 +1,67 @@
-# Script para Verificación de Usuarios SMTP (VRFY)
+# 📧 smtp-vrfy-checker
 
-## Mejoras realizadas y explicación:
+Herramienta en Python para realizar verificación de usuarios en servidores SMTP utilizando el comando `VRFY`. Útil en auditorías de seguridad y evaluaciones de configuración de servicios de correo electrónico.
 
-1. **Shebang actualizado**: Usa `#!/usr/bin/env python3` para mayor portabilidad.
+## 🛠️ Características
 
-2. **Manejo profesional de argumentos**:
-   - Chequeo manual con el módulo `argparse` 
-   - Opción para puerto personalizado (por defecto 25)
-   - Mensajes de ayuda automáticos
+- ✅ Conexión TCP a servidores SMTP (IPv4)
+- ✅ Uso del comando `VRFY` para validar existencia de usuarios
+- ✅ Banner grabber del servidor SMTP
+- ✅ Soporte de puertos personalizados (por defecto: 25)
+- ✅ Manejo de errores comunes (timeout, conexión rechazada, etc.)
 
-3. **Manejo de contexto del socket**:
-   - Se usa `with` para que el socket se cierre automáticamente
-   - Se agrega timeout para evitar bloqueos infinitos
+## 🚀 Uso
 
-4. **Mejor manejo de errores**:
-   - Captura específica de diferentes tipos de errores de conexión
-   - Mensajes de error claros que se envían a stderr
+### 📥 Requisitos
 
-5. **Mejor formato de salida**:
-   - Salidas con prefijos informativos ([*], [+], [-])
-   - Decodificación adecuada de las respuestas (con manejo de errores)
+- Python 3.x
 
-6. **Codificación adecuada**:
-   - Uso consistente de UTF-8 para encoding/decoding
-   - Manejo de errores en la decodificación
-
-7. **Estructura modular**:
-   - Código encapsulado en una función main()
-   - Chequeo de ejecución como script principal
-
-## ¿Cómo usar el script ?
+### ▶️ Ejecución
 
 ```bash
-# Uso básico (puerto 25):
-./vrfy.py usuario 192.168.1.100
+python3 smtp_vrfy_checker.py usuario objetivo_ip [-p PUERTO]
+````
 
-# Especificando puerto diferente:
-./vrfy.py usuario 192.168.1.100 -p 2525
+### 📌 Parámetros
 
-# Mostrar ayuda:
-./vrfy.py -h
+| Parámetro     | Descripción                                   |
+| ------------- | --------------------------------------------- |
+| `usuario`     | Nombre del usuario a verificar en el servidor |
+| `objetivo_ip` | Dirección IP del servidor SMTP                |
+| `-p, --port`  | Puerto del servicio SMTP (por defecto: 25)    |
+
+
+### 📍 Ejemplo
+
+```bash
+python3 smtp_vrfy_checker.py root 192.168.1.100
 ```
+
+Salida esperada:
+
+```
+[*] Conectando a 192.168.1.100:25...
+[*] Banner del servidor:
+220 mail.example.com ESMTP Postfix
+[*] Enviando: VRFY root
+[+] Respuesta del servidor:
+250 2.1.5 User OK
+```
+## ⚠️ Consideraciones de seguridad
+
+* El comando `VRFY` está **deshabilitado por defecto** en muchos servidores modernos debido a consideraciones de privacidad.
+* Esta herramienta debe usarse **solo con autorización** expresa, como parte de pruebas de seguridad, auditorías o entornos de laboratorio.
+
+## 📂 Archivos
+
+* `smtp_vrfy_checker.py`: Script principal
+* `README.md`: Este documento
+
+## 📄 Licencia
+
+MIT License – libre para uso, modificación y distribución.
+
+## 👨‍💻 Autor
+
+Erick O.
+🔗 GitHub: [@NoTrustedx](https://github.com/NoTrustedx)
